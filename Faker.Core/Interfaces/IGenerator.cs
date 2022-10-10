@@ -1,4 +1,4 @@
-﻿namespace Faker.Core
+﻿namespace Faker.Core.Interfaces
 {
     public interface IGenerator
     {
