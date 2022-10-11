@@ -1,8 +1,7 @@
-﻿namespace Faker.Core.Interfaces
+﻿namespace Faker.Core.Interfaces;
+
+public interface IGenerator
 {
-    public interface IGenerator
-    {
-        object Generate(Type type);
-        bool CanGenerate(Type type);
-    }
+    object Generate(Type type, GeneratorContext context);
+    bool CanGenerate(Type type);
 }

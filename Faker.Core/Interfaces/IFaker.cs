@@ -1,7 +1,7 @@
-﻿namespace Faker.Core.Interfaces
+﻿namespace Faker.Core.Interfaces;
+
+public interface IFaker
 {
-    public interface IFaker
-    {
-        T Create<T>();
-    }
+    T Create<T>();
+    object Create(Type type);
 }
