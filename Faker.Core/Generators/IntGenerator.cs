@@ -1,11 +1,14 @@
 ﻿using Faker.Core.Interfaces;
+using static System.Int32;
 
-namespace Faker.Core.Generators
+namespace Faker.Core.Generators;
+
+public class IntGenerator : IGenerator
 {
-    public class IntGenerator : IGenerator
+    public object Generate(Type type, GeneratorContext context)
     {
-        private readonly Random _rand = new();
-        public object Generate(Type type) => _rand.Next();
-        public bool CanGenerate(Type type) => type == typeof(int);
+        return context.Random.Next(1, MaxValue);
     }
+
+    public bool CanGenerate(Type type) => type == typeof(int);
 }

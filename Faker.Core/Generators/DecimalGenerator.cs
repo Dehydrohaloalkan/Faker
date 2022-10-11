@@ -1,11 +1,13 @@
 ﻿using Faker.Core.Interfaces;
+using static System.Int32;
 
-namespace Faker.Core.Generators
+namespace Faker.Core.Generators;
+
+public class DecimalGenerator : IGenerator
 {
-    public class DecimalGenerator : IGenerator
+    public object Generate(Type type, GeneratorContext context)
     {
-        private readonly Random _rand = new();
-        public object Generate(Type type) => (decimal)_rand.Next();
-        public bool CanGenerate(Type type) => type == typeof(decimal);
+        return (decimal) context.Random.Next(1, MaxValue);
     }
+    public bool CanGenerate(Type type) => type == typeof(decimal);
 }

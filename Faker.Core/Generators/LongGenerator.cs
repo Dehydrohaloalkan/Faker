@@ -1,11 +1,13 @@
 ﻿using Faker.Core.Interfaces;
+using static System.Int32;
 
-namespace Faker.Core.Generators
+namespace Faker.Core.Generators;
+
+public class LongGenerator : IGenerator
 {
-    public class LongGenerator : IGenerator
+    public object Generate(Type type, GeneratorContext context)
     {
-        private readonly Random _rand = new();
-        public object Generate(Type type) => (long)_rand.Next();
-        public bool CanGenerate(Type type) => type == typeof(long);
+        return (long) context.Random.Next(1, MaxValue);
     }
+    public bool CanGenerate(Type type) => type == typeof(long);
 }

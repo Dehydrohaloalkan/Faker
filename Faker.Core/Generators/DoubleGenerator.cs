@@ -1,11 +1,12 @@
 ﻿using Faker.Core.Interfaces;
 
-namespace Faker.Core.Generators
+namespace Faker.Core.Generators;
+
+public class DoubleGenerator : IGenerator
 {
-    public class DoubleGenerator : IGenerator
+    public object Generate(Type type, GeneratorContext context)
     {
-        private readonly Random _rand = new();
-        public object Generate(Type type) => _rand.NextDouble();
-        public bool CanGenerate(Type type) => type == typeof(double);
+        return context.Random.NextDouble() + 1 * 10;
     }
+    public bool CanGenerate(Type type) => type == typeof(double);
 }
