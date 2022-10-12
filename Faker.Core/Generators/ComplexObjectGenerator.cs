@@ -10,7 +10,7 @@ public class ComplexObjectGenerator : IGenerator
         return obj == null ? null : InitializeObject(obj, context);
     }
 
-    public bool CanGenerate(Type type) => !type.IsGenericType;
+    public bool CanGenerate(Type type) => true;
 
     private object? CreateObject(Type type, GeneratorContext context)
     {
@@ -45,28 +45,27 @@ public class ComplexObjectGenerator : IGenerator
 
     private object InitializeObject(object obj, GeneratorContext context)
     {
-
         obj.GetType().GetProperties()
-            .Where(p => !Equals(p.GetValue(obj), GetDefaultValue(p.PropertyType)))
+            .Where(p => Equals(p.GetValue(obj), GetDefaultValue(p.PropertyType)))
             .ForEach(property =>
             {
                 try
                 {
-                    property.SetValue(obj, GetDefaultValue(property.PropertyType));
+                    property.SetValue(obj, context.Faker.Create(property.PropertyType));
                 }
                 catch
                 {
                     // ignored
                 }
             });
-        
+
         obj.GetType().GetFields()
-            .Where(f => !Equals(f.GetValue(obj), GetDefaultValue(f.FieldType)))
+            .Where(f => Equals(f.GetValue(obj), GetDefaultValue(f.FieldType)))
             .ForEach(field =>
             {
                 try
                 {
-                    field.SetValue(obj, GetDefaultValue(field.FieldType));
+                    field.SetValue(obj, context.Faker.Create(field.FieldType));
                 }
                 catch
                 {
