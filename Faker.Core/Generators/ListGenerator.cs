@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Reflection;
 using Faker.Core.Interfaces;
 
 namespace Faker.Core.Generators;
