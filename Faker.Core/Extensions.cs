@@ -9,4 +9,6 @@ public static class Extensions
             action(item);
         }
     }
+
+    public static object? DefaultValue(this Type type) => type.IsValueType ? Activator.CreateInstance(type) : null;
 }

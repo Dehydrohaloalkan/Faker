@@ -46,7 +46,7 @@ public class ComplexObjectGenerator : IGenerator
     private object InitializeObject(object obj, GeneratorContext context)
     {
         obj.GetType().GetProperties()
-            .Where(p => Equals(p.GetValue(obj), GetDefaultValue(p.PropertyType)))
+            .Where(p => Equals(p.GetValue(obj), p.PropertyType.DefaultValue()))
             .ForEach(property =>
             {
                 try
@@ -60,7 +60,7 @@ public class ComplexObjectGenerator : IGenerator
             });
 
         obj.GetType().GetFields()
-            .Where(f => Equals(f.GetValue(obj), GetDefaultValue(f.FieldType)))
+            .Where(f => Equals(f.GetValue(obj), f.FieldType.DefaultValue()))
             .ForEach(field =>
             {
                 try
@@ -75,6 +75,4 @@ public class ComplexObjectGenerator : IGenerator
 
         return obj;
     }
-
-    private object? GetDefaultValue(Type type) => type.IsValueType ? Activator.CreateInstance(type) : null;
 }
