@@ -41,6 +41,7 @@ public class Tests
             Assert.That(myObject.Number, Is.Not.EqualTo(myObject.Number.GetType().DefaultValue()));
             Assert.That(myObject.Text, Is.Not.EqualTo(myObject.Text.GetType().DefaultValue()));
             Assert.That(myObject.Check, Is.Not.EqualTo(myObject.Check.GetType().DefaultValue()));
+            Assert.That(ClassA.Static, Is.EqualTo(0));
         });
     }
 
@@ -67,4 +68,5 @@ public class Tests
     {
         Assert.DoesNotThrow(() => _faker.Create<CycleClass>());
     }
+
 }

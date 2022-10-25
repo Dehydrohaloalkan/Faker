@@ -1,4 +1,5 @@
-﻿using Faker.Core.Interfaces;
+﻿using System.Reflection;
+using Faker.Core.Interfaces;
 
 namespace Faker.Core.Generators;
 
@@ -45,7 +46,8 @@ public class ComplexObjectGenerator : IGenerator
 
     private object InitializeObject(object obj, GeneratorContext context)
     {
-        obj.GetType().GetProperties()
+        obj.GetType().GetProperties(BindingFlags.Public |
+                                    BindingFlags.Instance)
             .Where(p => Equals(p.GetValue(obj), p.PropertyType.DefaultValue()))
             .ForEach(property =>
             {
@@ -60,6 +62,7 @@ public class ComplexObjectGenerator : IGenerator
             });
 
         obj.GetType().GetFields()
+            .Where(f => !f.IsStatic)
             .Where(f => Equals(f.GetValue(obj), f.FieldType.DefaultValue()))
             .ForEach(field =>
             {
