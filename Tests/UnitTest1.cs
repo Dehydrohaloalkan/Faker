@@ -12,21 +12,15 @@ public class Tests
     {
         _faker = new Faker.Core.Faker();
     }
+    private static IEnumerable<TestCaseData> _dataTypes = new List<TestCaseData>()
+    {
+        new(typeof(bool)), new(typeof(byte)), new(typeof(char)), new(typeof(DateTime)), new(typeof(decimal)),
+        new(typeof(double)), new(typeof(float)), new(typeof(int)), new(typeof(List<int>)),
+        new(typeof(List<List<int>>)), new(typeof(long)), new(typeof(string)), new(typeof(short))
+    };
 
     [Test]
-    [TestCase(typeof(bool))]
-    [TestCase(typeof(byte))]
-    [TestCase(typeof(char))]
-    [TestCase(typeof(DateTime))]
-    [TestCase(typeof(decimal))]
-    [TestCase(typeof(double))]
-    [TestCase(typeof(float))]
-    [TestCase(typeof(int))]
-    [TestCase(typeof(List<int>))]
-    [TestCase(typeof(List<List<int>>))]
-    [TestCase(typeof(long))]
-    [TestCase(typeof(string))]
-    [TestCase(typeof(short))]
+    [TestCaseSource(nameof(_dataTypes))]
     public void Faker_SimpleType_ReturnNotDefaultValue(Type type)
     {
         Assert.That(_faker.Create(type), Is.Not.EqualTo(type.DefaultValue()));
